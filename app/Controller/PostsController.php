@@ -20,27 +20,16 @@ class PostsController extends AppController {
 		$this->set('post', $post);
 	}
 	//This function allow us to add to the posts database//
-	public function add() {
-		 
-		//Checking if this is a HTTP post request//
-		if ($this->request->is('post')) {
-			 
-			// Initializing the post Model//
-			$this->Post->create();
-
-			// handing the request object data to be saved by the post Model//
-			if ($this->Post->save($this->request->data)) {
-				 
-				// This is a confirmation message that will flash on the screen//
-				$this->Session->setFlash(__('Your post has been saved.'));
-
-				//When you have updated your post it returns to Posts index action
-				return $this->redirect(array('action' => 'index'));
-			}
-			// Flash message in case it doesn't save//
-			$this->Session->setFlash(__('Unable to add your post.'));
-		}
-	}
+public function add() {
+    if ($this->request->is('post')) {
+        //Added this line
+        $this->request->data['Post']['user_id'] = $this->Auth->user('id');
+        if ($this->Post->save($this->request->data)) {
+            $this->Session->setFlash(__('Your post has been saved.'));
+            return $this->redirect(array('action' => 'index'));
+        }
+    }
+}
 	public function edit($id = null) {
 		if (!$id) {
 			throw new NotFoundException(__('Invalid post'));
@@ -76,6 +65,22 @@ class PostsController extends AppController {
 			);
 			return $this->redirect(array('action' => 'index'));
 		}
+	}
+	public function isAuthorized($user) {
+	    // All registered users can add posts
+	    if ($this->action === 'add') {
+	        return true;
+	    }
+	
+	    // The owner of a post can edit and delete it
+	    if (in_array($this->action, array('edit', 'delete'))) {
+	        $postId = $this->request->params['pass'][0];
+	        if ($this->Post->isOwnedBy($postId, $user['id'])) {
+	            return true;
+	        }
+	    }
+	
+	    return parent::isAuthorized($user);
 	}
 }
 ?>
