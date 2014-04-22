@@ -1,6 +1,12 @@
 <?php
 			class Post extends AppModel {
 				//makes sure that no empty Posts are added//
+				public $belongsTo = array(
+					'User' => array (
+						'className' => 'User',
+						'foreignKey' => 'user_id')
+			);			
+				
 				public $validate = array(
         'title' => array(
             'rule' => 'notEmpty'

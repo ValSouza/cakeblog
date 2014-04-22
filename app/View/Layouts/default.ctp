@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <?php
 /**
  *
@@ -18,8 +20,7 @@
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
-<!DOCTYPE html>
-<html>
+
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
@@ -40,12 +41,25 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link('Users',array('controller' => 'users', 'action' => 'index')); ?></h1>
+			<h1><?php echo $this->Html->link('Posts',array('controller' => 'posts', 'action' => 'index')); ?></h1>
+			<h1><?php echo $this->Html->link('Logout',array('controller' => 'posts', 'action' => 'logout')); ?></h1>
+			<h1><?php echo $this->Html->link('Login',array('controller' => 'posts', 'action' => 'login')); ?></h1>
 		</div>
 		<div id="content">
-
+		<?php if(AuthComponent::user()){
+			echo 'Welcome '.AuthComponent::user('username');
+			echo $this->Html->link(' Logout ',array ('controller'=>'users', 'action'=>'logout'));
+			}
+			else{
+				echo $this->Html->link(' Login ',array ('controller'=>'users', 'action'=>'login'));
+			}
+			?>
+		
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
+		
 		</div>
 		<div id="footer">
 			<?php echo $this->Html->link(
@@ -54,6 +68,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>
+			<?php if (!empty($user)) 
+        echo $html->link('Logout', array('controller' => 'Users', 'action'=>'logout')); ?>	
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>

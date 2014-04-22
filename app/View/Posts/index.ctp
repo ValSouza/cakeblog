@@ -3,7 +3,7 @@
 
 
 <h1>Blog posts</h1>
-<p><?php echo $this->Html->link("Add Post", array('action' => 'add')); ?></p>
+<?php echo $this->Html->link("Add Post", array('action' => 'add')); ?>
 <table>
     <tr>
         <th>Id</th>
@@ -14,8 +14,7 @@
 
 <!-- Here's where we loop through our $posts array, printing out post info -->
 
-<?php 
-	foreach ($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
     <tr>
         <td><?php echo $post['Post']['id']; ?></td>
         <td>
@@ -29,8 +28,7 @@
         <td>
             <?php
                 echo $this->Html->link(
-                    'Edit',
-                    array('action' => 'edit', $post['Post']['id'])
+                    'Edit',array('action' => 'edit', $post['Post']['id'])
                 );
             ?>
         </td>

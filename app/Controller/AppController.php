@@ -40,10 +40,8 @@ public $components = array(
                 'action' => 'index'
             ),
             'logoutRedirect' => array(
-                'controller' => 'pages',
-                'action' => 'display',
-                'home'
-            ),
+                'controller' => 'users',
+                'action' => 'login'),
             'authorize' => array('Controller') // Added this line
         )
     );
@@ -58,7 +56,23 @@ public $components = array(
 	}
 
     public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
+        $this->Auth->allow('add', 'logout', 'login');
+    $this->Auth->deny('view');
     }
-	
+	public function login() {
+    if ($this->request->is('post')) {
+        if ($this->Auth->login()) {
+
+            $this->redirect('http://domain.com/thankyou');
+        } else {
+            $this->Session->setFlash(__('Invalid username or password, try again'));
+        }
+    }
 }
+
+public function logout() {
+    $this->redirect($this->Auth->logout());
+}
+}
+	
+

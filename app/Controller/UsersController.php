@@ -79,6 +79,21 @@ class UsersController extends AppController {
 		$this->Session->setFlash(__('User was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
-
+	
+	public function isAuthorized($User){
+		if(in_array($this->action, array('add'))){
+			return true;
+		}
+		if(in_array($this->action, array('view', 'edit', 'delete'))){
+			$userId = $this->request->params['pass'][0];
+			if($this->Auth->user('id')=== $userId) {
+				return true;
+			}
+			else{
+			$this->Session->setFlash(__('Sorry only admin users may modify, view or delete other users'));
+		}
+	}
+	return parent::isAuthorized($user);
+}
 }
 ?>
