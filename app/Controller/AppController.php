@@ -30,49 +30,59 @@ App::uses('Controller', 'Controller');
  * @package		app.Controller
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
+class AppController extends Controller { 
 	
-public $components = array(
-        'Session',
-        'Auth' => array(
-            'loginRedirect' => array(
-                'controller' => 'posts',
-                'action' => 'index'
-            ),
-            'logoutRedirect' => array(
-                'controller' => 'users',
-                'action' => 'login'),
-            'authorize' => array('Controller') // Added this line
-        )
-    );
+	public $components = array(
+		
+		'Session',
+		'Auth' => array(
+			'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+			'logoutRedirect' => array('controller' => 'posts', 'action' => 'index'),
+			'authError' => "You don't have permission for that action",//check for credentials
+			'authorize' => array('Controller') // Added this line
+			
+		)
+	);	
+	
+	//action authorizing registered users
 	public function isAuthorized($user) {
-	    // Admin can access every action
-	    if (isset($user['role']) && $user['role'] === 'admin') {
-	        return true;
-	    }
-	
-	    // Default deny
-	    return false;
+		// Admin can access every action
+		if (isset($user['role']) && $user['role'] === 'admin') {
+			return true;
+		}
+		// Default deny
+		return false;
 	}
-
+	public function loggedIn(){
+		$logged_in = false;
+		if($this->Auth->user()){
+			$logged_in =true;
+		}
+		return $logged_in;
+	}
+	public function _currentUser(){
+		$current_user = null;
+		if($this->Auth->user()){
+			$current_user = $this->Auth->user('username');
+		}
+		return $current_user;
+	}
+	public function _isAdmin(){
+		$admin = false;
+		if($this->Auth->user('roles')=== 'admin'){
+			return true;
+		}
+		return $admin;
+	}
+	//action authorizing non register users to only view posts
     public function beforeFilter() {
-        $this->Auth->allow('add', 'logout', 'login');
-    $this->Auth->deny('view');
+        $this->Auth->allow(array('index', 'view'));
+		$this->set('logged_in', $this->Auth->loggedIn());
+        $this->set('current_user', $this->Auth->user());
+		
+		$this->set('admin', $this->_isAdmin());
     }
-	public function login() {
-    if ($this->request->is('post')) {
-        if ($this->Auth->login()) {
-
-            $this->redirect('http://domain.com/thankyou');
-        } else {
-            $this->Session->setFlash(__('Invalid username or password, try again'));
-        }
-    }
+ 
 }
 
-public function logout() {
-    $this->redirect($this->Auth->logout());
-}
-}
-	
-
+?>

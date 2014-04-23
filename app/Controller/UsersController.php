@@ -80,7 +80,7 @@ class UsersController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 	
-	public function isAuthorized($User){
+	public function isAuthorized($user){
 		if(in_array($this->action, array('add'))){
 			return true;
 		}

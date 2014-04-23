@@ -1,14 +1,13 @@
-<!-- app/View/Users/add.ctp -->
-<div class="users form">
+<div class= "users form">
 <div class ="row">
 <div class="col-lg-6 col-lg-offset-3">
-        <h2>Registration Form</h2><br /> <br />
+        <h2>Edit User Profile</h2><br /> <br />
 		
         <div class="well">            
             <?php echo $this->Form->create('User',array('class'=>'form-horizontal','inputDefaults'=>array('label'=>false)));?>
 			
             <div class="form-group">
-				<legend><?php echo __('Please fill out all the registration form'); ?></legend>
+				<legend><?php echo __('Please fill out all the registration form fields'); ?></legend>
                 <label for="inputName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
                     <?php echo $this->Form->input('name',array('class'=>'form-control'));?>
@@ -47,5 +46,8 @@
             <?php echo $this->Form->end();?>
         </div>
     </div>
+
 </div>
 </div>
+
+
