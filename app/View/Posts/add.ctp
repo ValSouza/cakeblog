@@ -5,7 +5,13 @@
 		
         <div class="well">            
             <?php echo $this->Form->create('Post',array('class'=>'form-horizontal','inputDefaults'=>array('label'=>false)));?>
+			<div class="form-group">
 			
+                <label for="inputName" class="col-sm-2 control-label">username</label>
+                <div class="col-sm-10">
+                    <?php echo $this->Form->input('Username',array('class'=>'form-control'));?>
+				</div>
+            </div>
             <div class="form-group">
 				<legend><?php //echo __('Please enter your username and password'); ?></legend>
                 <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
