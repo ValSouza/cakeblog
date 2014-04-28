@@ -64,22 +64,13 @@ class DATABASE_CONFIG {
 		 'datasource' => 'Database/Mysql',
 		 'persistent' => false,
 		 'host' => 'eu-cdbr-azure-north-c.cloudapp.net,
-		 'login' =>"bd97cf7b90ca2b",
+		 'login' =>'bd97cf7b90ca2b',
 		 'password' => '9cebf2b4 ',
 		 'database' => 'valsouzABAUshUxD',
 		 'prefix' => '',
-		'encoding' => 'utf8',
-	 );
-	 // public $default = array( 
-		 // 'datasource' => 'Database/Mysql',
-		 // 'persistent' => false,
-		 // 'host' => 'eu-cdbr-azure-north-c.cloudapp.net',
-		 // 'login' => 'bd97cf7b90ca2b',
-		 // 'password' => '9cebf2b4 ',
-		 // 'database' => 'valsouzABAUshUxD',
-		 // 'prefix' => '',
 		//'encoding' => 'utf8',
-	 // );
+	 );
+	 
 	// public $default = array(
 		// 'datasource' => 'Database/Mysql',
 		// 'persistent' => false,
@@ -89,7 +80,7 @@ class DATABASE_CONFIG {
 		// 'database' => 'cake_blog_tutorial',
 		// 'prefix' => '',
 		//'encoding' => 'utf8',
-	 //);
+	 // );
 
 	//public $test = array(
 		//'datasource' => 'Database/Mysql',
