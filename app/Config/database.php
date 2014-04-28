@@ -63,9 +63,9 @@ class DATABASE_CONFIG {
 		 public $default = array( 
 		 'datasource' => 'Database/Mysql',
 		 'persistent' => false,
-		 'host' => 'eu-cdbr-azure-north-c.cloudapp.net,
+		 'host' => 'eu-cdbr-azure-north-c.cloudapp.net',
 		 'login' =>'bd97cf7b90ca2b',
-		 'password' => '9cebf2b4',
+		 'password' => 'cfa8140f5aa26b1',
 		 'database' => 'valsouzABAUshUxD',
 		 'prefix' => '',
 		//'encoding' => 'utf8',
